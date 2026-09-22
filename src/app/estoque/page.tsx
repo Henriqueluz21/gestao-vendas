@@ -24,6 +24,9 @@ export default function EstoquePage() {
     const [modalAberto, setModalAberto] = useState(false);
     const [produtos, setProdutos] = useState<Produto[]>([]);
     const [carregando, setCarregando] = useState(true);
+    const [estoqueEditar, setEstoqueEditar] = useState<Estoque | null>(null);
+
+
 
     async function carregarEstoques() {
         try {
@@ -51,6 +54,39 @@ export default function EstoquePage() {
         }
     }
 
+    function editarEstoque(estoque: Estoque) {
+        alert(
+            `Editar estoque do produto ${estoque.produtoId}`
+        );
+    }
+
+    async function excluirEstoque(id: number) {
+        const confirmar = window.confirm(
+            "Deseja realmente excluir este estoque?"
+        );
+
+        if (!confirmar) {
+            return;
+        }
+
+        try {
+            await apiFetch(`/api/estoque/${id}`, {
+                method: "DELETE",
+            });
+
+            await carregarEstoques();
+        } catch (error) {
+            console.error(
+                "Erro ao excluir estoque:",
+                error
+            );
+
+            alert(
+                "Não foi possível excluir o estoque."
+            );
+        }
+    }
+
     useEffect(() => {
         carregarEstoques();
     }, []);
@@ -62,7 +98,7 @@ export default function EstoquePage() {
                 <div>
                     <h1>Estoque</h1>
                 </div>
-                <button className="primary-button" onClick={() => setModalAberto(true)}>
+                <button className="primary-button" onClick={() => { setEstoqueEditar(null);setModalAberto(true); }}>
                     + Entrada
                 </button>
             </div>
@@ -87,6 +123,7 @@ export default function EstoquePage() {
                                 <th>SKU</th>
                                 <th>Quantidade</th>
                                 <th>Status</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
 
@@ -154,6 +191,17 @@ export default function EstoquePage() {
                                                 {statusText}
                                             </span>
                                         </td>
+                                        <td>
+                                            <div className="table-actions">
+                                                <button className="table-button" onClick={() => { setEstoqueEditar(estoque); setModalAberto(true); }}>
+                                                    Editar
+                                                </button>
+
+                                                <button className="table-button delete-button" onClick={() => excluirEstoque(estoque.id)} >
+                                                    Excluir
+                                                </button>
+                                            </div>
+                                        </td>
                                     </tr>
                                 );
                             })}
@@ -164,7 +212,11 @@ export default function EstoquePage() {
             {modalAberto && (
                 <EstoqueModal
                     produtos={produtos}
-                    onClose={() => setModalAberto(false)}
+                    estoqueEditando={estoqueEditar}
+                    onClose={() => {
+                        setModalAberto(false);
+                        setEstoqueEditar(null);
+                    }}
                     onSuccess={carregarEstoques}
                 />
             )}

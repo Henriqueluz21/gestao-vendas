@@ -1,95 +1,112 @@
-"use client";
+interface ItemVenda {
+    produtoId: number;
+    sku: string;
+    nomeProduto: string;
+    quantidade: number;
+    precoUnitario: number;
+    subtotal: number;
+}
 
-import { ShoppingBag } from "lucide-react";
+interface Venda {
+    id: number;
+    data: string;
+    valorTotal: number;
+    itens: ItemVenda[];
+}
 
-const sales = [
-    {
-        id: "#1024",
-        product: "Teclado Mecânico",
-        customer: "Cliente 01",
-        value: "R$ 250,00",
-        status: "Concluída",
-    },
-    {
-        id: "#1023",
-        product: "Mouse Gamer",
-        customer: "Cliente 02",
-        value: "R$ 180,00",
-        status: "Concluída",
-    },
-    {
-        id: "#1022",
-        product: "Headset",
-        customer: "Cliente 03",
-        value: "R$ 420,00",
-        status: "Concluída",
-    },
-    {
-        id: "#1021",
-        product: "Monitor",
-        customer: "Cliente 04",
-        value: "R$ 950,00",
-        status: "Pendente",
-    },
-];
+interface RecentSalesProps {
+    vendas: Venda[];
+}
 
-export default function RecentSales() {
+export default function RecentSales({
+    vendas,
+}: RecentSalesProps) {
+
+    function formatarMoeda(valor: number) {
+
+        return Number(valor).toLocaleString(
+            "pt-BR",
+            {
+                style: "currency",
+                currency: "BRL",
+            }
+        );
+    }
+
+    function formatarData(data: string) {
+
+        return new Date(data).toLocaleDateString(
+            "pt-BR"
+        );
+    }
+
+    // Mostra as 5 vendas mais recentes
+    const vendasRecentes = [...vendas]
+        .sort(
+            (a, b) =>
+                new Date(b.data).getTime() -
+                new Date(a.data).getTime()
+        )
+        .slice(0, 3);
+
     return (
-        <div className="recent-sales">
-            <div className="section-header">
 
+        <div className="recent-sales">
+            <div className="recent-sales-header">
                 <div>
-                    <h3>Últimas vendas</h3>
-                    <p>
-                        Vendas realizadas recentemente
-                    </p>
+                    <h2>
+                        Vendas recentes
+                    </h2>
+                </div>
+            </div>
+
+
+            {vendasRecentes.length === 0 ? (
+
+                <div className="recent-sales-empty">
+                    Nenhuma venda realizada.
                 </div>
 
-                <button className="view-all">
-                    Ver todas
-                </button>
-            </div>
+            ) : (
 
-            <div className="sales-list">
+                <div className="recent-sales-list">
+                    {vendasRecentes.map((venda) => (
+                        <div  className="recent-sale" key={venda.id} >
+                            <div className="recent-sale-info">
+                                <strong>
+                                    Venda #{venda.id}
+                                </strong>
 
-                {sales.map((sale) => (
+                                <span>
+                                    {formatarData(venda.data)}
+                                </span>
+                            </div>
 
-                    <div
-                        className="sale-item"
-                        key={sale.id}
-                    >
-                        <div className="sale-icon">
-                            <ShoppingBag size={18} />
-                        </div>
 
-                        <div className="sale-info">
-                            <strong>
-                                {sale.product}
+                            <div className="recent-sale-products">
+
+                                {venda.itens.map((item) => (
+                                    <span
+                                        key={item.produtoId}
+                                    >
+                                        {item.nomeProduto}
+                                        {" "}
+                                        × {item.quantidade}
+                                    </span>
+
+                                ))}
+                            </div>
+
+                            <strong className="recent-sale-value">
+
+                                {formatarMoeda(
+                                    Number(venda.valorTotal)
+                                )}
                             </strong>
-
-                            <span>
-                                {sale.id} · {sale.customer}
-                            </span>
                         </div>
-
-                        <div className="sale-value">
-                            <strong>
-                                {sale.value}
-                            </strong>
-
-                            <span
-                                className={
-                                    sale.status === "Concluída"
-                                        ? "status-completed"
-                                        : "status-pending"
-                                }
-                            >
-                                {sale.status}
-                            </span>
-                        </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 }

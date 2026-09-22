@@ -20,7 +20,6 @@ export default function Sidebar() {
                 </div>
                 <div>
                     <h1>Sistema de Gestão</h1>
-                    <span>Controle do seu negócio</span>
                 </div>
             </div>
 
@@ -29,15 +28,15 @@ export default function Sidebar() {
                     <LayoutDashboard size={20} />
                     <span>Dashboard</span>
                 </a>
-                <a className="sidebar-item">
+                <a className="sidebar-item" href="/produtos">
                     <Package size={20} />
                     <span>Produtos</span>
                 </a>
-                <a className="sidebar-item">
+                <a className="sidebar-item" href="/estoque">
                     <Warehouse size={20} />
                     <span>Estoque</span>
                 </a>
-                <a className="sidebar-item">
+                <a className="sidebar-item" href="/vendas">
                     <ShoppingCart size={20} />
                     <span>Vendas</span>
                 </a>

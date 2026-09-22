@@ -13,14 +13,10 @@ export default function Header() {
                 </div>
             </div>
             <div className="header-right">
-                <div className="header-icon">
-                    <Bell size={20} />
-                </div>
                 <div className="user-profile">
                     <UserCircle size={20} />
                     <div className="user-info">
                         <strong>Usuário</strong>
-                        <span>Administrador</span>
                     </div>
                 </div>
             </div>

@@ -1,99 +1,121 @@
-"use client";
+interface Venda {
+    id: number;
+    data: string;
+    valorTotal: number;
+}
 
-import {
-    ResponsiveContainer,
-    LineChart,
-    Line,
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    Tooltip,
-} from "recharts";
+interface SalesChartProps {
+    vendas: Venda[];
+}
 
-const data = [
-    {
-        dia: "Seg",
-        vendas: 850,
-    },
-    {
-        dia: "Ter",
-        vendas: 1200,
-    },
-    {
-        dia: "Qua",
-        vendas: 950,
-    },
-    {
-        dia: "Qui",
-        vendas: 1450,
-    },
-    {
-        dia: "Sex",
-        vendas: 1800,
-    },
-    {
-        dia: "Sáb",
-        vendas: 2200,
-    },
-    {
-        dia: "Dom",
-        vendas: 1650,
-    },
-];
+export default function SalesChart({
+    vendas,
+}: SalesChartProps) {
 
-export default function SalesChart() {
+    function formatarMoeda(valor: number) {
+        return Number(valor).toLocaleString(
+            "pt-BR",
+            {
+                style: "currency",
+                currency: "BRL",
+            }
+        );
+    }
+
+    const vendasRecentes = [...vendas]
+        .sort(
+            (a, b) =>
+                new Date(a.data).getTime() -
+                new Date(b.data).getTime()
+        )
+        .slice(-7);
+
+    const maiorValor = Math.max(
+        ...vendasRecentes.map(
+            (venda) => Number(venda.valorTotal)
+        ),
+        0
+    );
+
     return (
         <div className="sales-chart">
-            <div className="section-header">
+
+            <div className="sales-chart-header">
+
                 <div>
-                    <h3>Vendas nos últimos 7 dias</h3>
-                    <p>
-                        Acompanhe o desempenho das vendas
-                    </p>
+                    <h2>Vendas</h2>
                 </div>
 
-                <select className="period-select">
-                    <option>Últimos 7 dias</option>
-                    <option>Últimos 30 dias</option>
-                    <option>Este mês</option>
-                </select>
+                <span className="sales-chart-total">
+                    {formatarMoeda(
+                        vendas.reduce(
+                            (total, venda) =>
+                                total +
+                                Number(venda.valorTotal),
+                            0
+                        )
+                    )}
+                </span>
 
             </div>
 
-            <div className="chart-container">
-                <ResponsiveContainer
-                    width="100%"
-                    height="100%"
-                >
-                    <LineChart data={data}>
-                        <CartesianGrid
-                            strokeDasharray="3 3"
-                            vertical={false}
-                        />
-                        <XAxis
-                            dataKey="dia"
-                            axisLine={false}
-                            tickLine={false}
-                        />
-                        <YAxis
-                            axisLine={false}
-                            tickLine={false}
-                        />
-                        <Tooltip />
+            {vendasRecentes.length === 0 ? (
 
-                        <Line
-                            type="monotone"
-                            dataKey="vendas"
-                            stroke="#2563eb"
-                            strokeWidth={3}
-                            dot={{ r: 4 }}
-                            activeDot={{ r: 6 }}
-                        />
+                <div className="sales-chart-empty">
+                    Nenhuma venda registrada.
+                </div>
 
-                    </LineChart>
-                </ResponsiveContainer>
+            ) : (
 
-            </div>
+                <div className="sales-chart-content">
+
+                    <div className="sales-chart-bars">
+
+                        {vendasRecentes.map((venda) => {
+
+                            const valor =
+                                Number(venda.valorTotal);
+
+                            const altura =
+                                maiorValor > 0
+                                    ? (valor / maiorValor) * 100
+                                    : 0;
+
+                            return (
+                                <div
+                                    className="sales-chart-column"
+                                    key={venda.id}
+                                >
+
+                                    <span className="sales-chart-value">
+                                        {formatarMoeda(valor)}
+                                    </span>
+
+                                    <div className="sales-chart-bar-container">
+
+                                        <div
+                                            className="sales-chart-bar"
+                                            style={{
+                                                height: `${altura}%`,
+                                            }}
+                                        />
+
+                                    </div>
+
+                                    <span className="sales-chart-label">
+                                        #{venda.id}
+                                    </span>
+
+                                </div>
+                            );
+
+                        })}
+
+                    </div>
+
+                </div>
+
+            )}
 
         </div>
     );

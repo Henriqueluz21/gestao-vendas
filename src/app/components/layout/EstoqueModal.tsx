@@ -11,16 +11,24 @@ interface Produto {
   sku: string;
 }
 
+interface Estoque {
+    id: number;
+    produtoId: number;
+    quantidade: number;
+}
+
 interface EstoqueModalProps {
-  produtos: Produto[];
-  onClose: () => void;
-  onSuccess: () => void;
+    produtos: Produto[];
+    estoqueEditando?: Estoque | null;
+    onClose: () => void;
+    onSuccess: () => void;
 }
 
 export default function EstoqueModal({
-  produtos,
-  onClose,
-  onSuccess,
+    produtos,
+    estoqueEditando,
+    onClose,
+    onSuccess,
 }: EstoqueModalProps) {
 
   const [produtoId, setProdutoId] = useState("");

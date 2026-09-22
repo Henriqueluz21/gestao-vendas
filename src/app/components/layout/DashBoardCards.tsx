@@ -1,74 +1,125 @@
-"use client";
+interface DashBoardCardsProps {
+    totalProdutos: number;
+    totalEstoque: number;
+    totalVendas: number;
+    faturamento: number;
+    carregando: boolean;
+}
 
-import { DollarSign, Users, ShoppingCart, Package, AlertTriangle, TrendingUp } from "lucide-react";
+interface CardProps {
+    titulo: string;
+    valor: string | number;
+    descricao: string;
+}
 
-const cards = [
-    {
-        title: "Vendas hoje",
-        value: "R$ 2.450,00",
-        description: "+12,5% em relação a ontem",
-        icon: DollarSign,
-        type: "positive",
-    },
-    {
-        title: "Pedidos",
-        value: "32",
-        description: "+8,2% em relação a ontem",
-        icon: ShoppingCart,
-        type: "positive",
-    },
-    {
-        title: "Produtos",
-        value: "148",
-        description: "4 novos produtos",
-        icon: Package,
-        type: "normal",
-    },
-    {
-        title: "Estoque baixo",
-        value: "7",
-        description: "Produtos precisam de atenção",
-        icon: AlertTriangle,
-        type: "warning",
-    },
-];
-
-export default function DashBoardCards() {
-
+function Card({
+    titulo,
+    valor,
+    descricao,
+}: CardProps) {
     return (
-        <div className="dashboard-cards">
+        <div className="dashboard-card">
 
-            {cards.map((card) => {
-                const Icon = card.icon;
-                return (
-                    <div className="dashboard-card" key={card.title}>
-                        <div className="card-top">
-                            <div className={`card-icon ${card.type}`}>
-                                <Icon size={21} />
-                            </div>
-                            {card.type === "positive" && (
-                                <TrendingUp
-                                    size={18}
-                                    className="trend-icon"
-                                />
-                            )}
-                        </div>
+            <div className="dashboard-card-content">
 
-                        <div className="card-content">
-                            <span className="card-title">
-                                {card.title}
-                            </span>
-                            <strong className="card-value">
-                                {card.value}
-                            </strong>
-                            <span className={`card-description ${card.type}`}>
-                                {card.description}
-                            </span>
-                        </div>
-                    </div>
-                );
-            })}
+                <span className="dashboard-card-title">
+                    {titulo}
+                </span>
+
+                <strong className="dashboard-card-value">
+                    {valor}
+                </strong>
+
+                <span className="dashboard-card-description">
+                    {descricao}
+                </span>
+
+            </div>
 
         </div>
+    );
+}
+
+export default function DashBoardCards({
+    totalProdutos,
+    totalEstoque,
+    totalVendas,
+    faturamento,
+    carregando,
+}: DashBoardCardsProps) {
+
+    function formatarMoeda(valor: number) {
+
+        return valor.toLocaleString(
+            "pt-BR",
+            {
+                style: "currency",
+                currency: "BRL",
+            }
+        );
+    }
+
+    if (carregando) {
+
+        return (
+            <div className="dashboard-cards">
+                <Card
+                    titulo="Produtos"
+                    valor="..."
+                    descricao="Carregando..."
+                />
+
+                <Card
+                    titulo="Estoque"
+                    valor="..."
+                    descricao="Carregando..."
+                />
+
+                <Card
+                    titulo="Vendas"
+                    valor="..."
+                    descricao="Carregando..."
+                />
+
+                <Card
+                    titulo="Faturamento"
+                    valor="..."
+                    descricao="Carregando..."
+                />
+
+            </div>
+        );
+    }
+
+    return (
+
+        <div className="dashboard-cards">
+
+            <Card
+                titulo="Produtos"
+                valor={totalProdutos}
+                descricao="Produtos cadastrados"
+            />
+
+            <Card
+                titulo="Estoque"
+                valor={totalEstoque}
+                descricao="Unidades em estoque"
+            />
+
+            <Card
+                titulo="Vendas"
+                valor={totalVendas}
+                descricao="Vendas realizadas"
+            />
+
+            <Card
+                titulo="Faturamento"
+                valor={formatarMoeda(faturamento)}
+                descricao="Total das vendas"
+            />
+
+        </div>
+
     );
 }

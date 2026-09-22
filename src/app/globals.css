@@ -538,6 +538,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 1%;
 }
 
 .page-header h1 {
@@ -1028,4 +1029,495 @@ body {
 
 .secondary-button:hover {
   background: #f9fafb;
+}
+
+/* =========================
+   MODAL DE VENDA
+========================= */
+
+.venda-modal {
+    width: 600px;
+    max-width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.venda-modal .form-group {
+    margin-bottom: 16px;
+}
+
+.venda-modal label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.venda-modal select,
+.venda-modal input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.venda-modal select:focus,
+.venda-modal input:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+/* Lista de produtos adicionados */
+
+.venda-itens {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.venda-item {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    align-items: center;
+    gap: 16px;
+    padding: 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+}
+
+.venda-item > div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.venda-item strong {
+    font-size: 14px;
+}
+
+.venda-item span {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.venda-item button {
+    border: none;
+    background: transparent;
+    color: #ef4444;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Total */
+
+.venda-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.venda-total span {
+    font-size: 15px;
+    color: #6b7280;
+}
+
+.venda-total strong {
+    font-size: 22px;
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 9999;
+}
+
+.modal {
+    background: white;
+    width: 500px;
+    max-width: 90%;
+    max-height: 90vh;
+
+    border-radius: 12px;
+
+    padding: 24px;
+
+    box-sizing: border-box;
+
+    overflow-y: auto;
+
+    position: relative;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    margin-bottom: 24px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.modal-header p {
+    margin: 6px 0 0;
+    color: #6b7280;
+}
+
+.modal-close {
+    border: none;
+    background: transparent;
+
+    font-size: 28px;
+    cursor: pointer;
+
+    line-height: 1;
+}
+
+.sale-row {
+    cursor: pointer;
+}
+
+.sale-row:hover {
+    background: #f8fafc;
+}
+
+.venda-detalhes-modal {
+    width: 700px;
+    max-width: 90%;
+}
+
+.venda-detalhes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.venda-detalhe-item {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    align-items: center;
+    gap: 20px;
+
+    padding: 14px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+}
+
+.venda-detalhe-item > div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.venda-detalhe-item span {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.venda-detalhes-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 20px;
+    padding-top: 16px;
+
+    border-top: 1px solid #e5e7eb;
+}
+
+.venda-detalhes-total strong {
+    font-size: 20px;
+}
+
+.danger-button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    background: #dc2626;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.danger-button:hover {
+    background: #b91c1c;
+}
+
+.sales-chart {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px;
+    flex: 1.5;
+}
+
+.sales-chart-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.sales-chart-header h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.sales-chart-header p {
+    margin: 5px 0 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.sales-chart-total {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.sales-chart-content {
+    margin-top: 30px;
+}
+
+.sales-chart-bars {
+    height: 260px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    gap: 12px;
+}
+
+.sales-chart-column {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.sales-chart-value {
+    font-size: 11px;
+    color: #6b7280;
+    white-space: nowrap;
+}
+
+.sales-chart-bar-container {
+    width: 100%;
+    max-width: 45px;
+    height: 180px;
+    display: flex;
+    align-items: flex-end;
+    background: #f3f4f6;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.sales-chart-bar {
+    width: 100%;
+    background: #2563eb;
+    border-radius: 6px;
+    min-height: 4px;
+    transition: height 0.3s ease;
+}
+
+.sales-chart-label {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.sales-chart-empty {
+    height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+}
+.recent-sales {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px;
+    flex: 1;
+}
+
+.recent-sales-header h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.recent-sales-header p {
+    margin: 5px 0 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.recent-sales-list {
+    margin-top: 20px;
+}
+
+.recent-sale {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr auto;
+    gap: 20px;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.recent-sale:last-child {
+    border-bottom: none;
+}
+
+.recent-sale-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.recent-sale-info strong {
+    color: #111827;
+}
+
+.recent-sale-info span {
+    font-size: 13px;
+    color: #9ca3af;
+}
+
+.recent-sale-products {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.recent-sale-products span {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.recent-sale-value {
+    white-space: nowrap;
+    color: #111827;
+}
+
+.recent-sales-empty {
+    padding: 40px 0;
+    text-align: center;
+    color: #9ca3af;
+}
+
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.dashboard-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 22px;
+}
+
+.dashboard-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.dashboard-card-title {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.dashboard-card-value {
+    font-size: 28px;
+    color: #111827;
+}
+
+.dashboard-card-description {
+    font-size: 13px;
+    color: #9ca3af;
+}
+
+.dashboard-loading {
+    margin-top: 25px;
+    padding: 40px;
+    text-align: center;
+    color: #6b7280;
+}
+
+.dashboard-summary {
+    margin-top: 25px;
+}
+
+.dashboard-summary-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.dashboard-summary-header h2 {
+    margin: 0;
+}
+
+.dashboard-summary-header p {
+    margin-top: 5px;
+    color: #6b7280;
+}
+
+.dashboard-summary-list {
+    margin-top: 20px;
+}
+
+.dashboard-summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.dashboard-summary-item:last-child {
+    border-bottom: none;
+}
+
+.dashboard-summary-item span {
+    color: #6b7280;
+}
+
+.dashboard-summary-item strong {
+    color: #111827;
+}
+
+@media (max-width: 1000px) {
+
+    .dashboard-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+    }
+
 }
