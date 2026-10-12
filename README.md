@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Gestão de Produtos, Estoque e Vendas
 
-## Getting Started
+Aplicação web para gerenciamento de produtos, controle de estoque e registro de vendas.
 
-First, run the development server:
+O projeto foi desenvolvido com uma arquitetura separando Front-end e Back-end, utilizando Next.js no Front-end, Spring Boot na API e PostgreSQL como banco de dados.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Funcionalidades
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Dashboard
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Visualização geral da aplicação
+- Quantidade total de produtos
+- Quantidade total de itens em estoque
+- Informações de vendas
+- Faturamento
+- Gráfico de vendas
+- Lista de vendas recentes
+- Atualização dos dados do dashboard
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Produtos
 
-## Learn More
+- Cadastro de produtos
+- Listagem de produtos
+- Busca de produtos
+- Edição de produtos
+- Exclusão de produtos
+- Informações de nome, SKU, descrição e preço
 
-To learn more about Next.js, take a look at the following resources:
+### Estoque
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Cadastro de entrada de estoque
+- Listagem dos produtos em estoque
+- Controle da quantidade disponível
+- Identificação de estoque baixo
+- Identificação de produtos sem estoque
+- Edição de estoque
+- Exclusão de estoque
+- Associação entre produto e estoque
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Vendas
 
-## Deploy on Vercel
+- Cadastro de vendas
+- Seleção de produtos
+- Definição da quantidade de cada produto
+- Cálculo automático do subtotal
+- Cálculo do valor total da venda
+- Consulta dos detalhes da venda
+- Exibição do nome e SKU dos produtos vendidos
+- Atualização automática do estoque após uma venda
+- Validação de estoque insuficiente
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Tecnologias
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Front-end
+
+- Next.js
+- React
+- TypeScript
+- CSS
+- Fetch API
+
+### Back-end
+
+- Java
+- Spring Boot
+- Spring Data JPA
+- Jakarta Validation
+- Hibernate
+
+### Banco de dados
+
+- PostgreSQL
+
+## Arquitetura
+
+O projeto é dividido em duas aplicações principais:
+
+```text
+gestao-produto/
+│
+├── gestao-front/
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── components/
+│   │   │   │   └── layout/
+│   │   │   ├── produtos/
+│   │   │   ├── estoque/
+│   │   │   ├── vendas/
+│   │   │   └── page.tsx
+│   │   └── services/
+│   │       └── api.ts
+│   │
+│   └── package.json
+│
+└── gestao-api/
+    └── src/
+        └── main/
+            └── java/
+                └── com/
+                    └── gestao/
+                        └── api/
+                            ├── controller/
+                            ├── dto/
+                            ├── exception/
+                            ├── model/
+                            ├── repository/
+                            └── service/
