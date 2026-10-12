@@ -1646,3 +1646,6 @@ body {
   border-radius: 12px;
 }
 
+.page-content {
+  min-height: calc(120vh - 50px);
+}
