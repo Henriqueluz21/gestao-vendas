@@ -40,29 +40,15 @@ export default function Sidebar() {
                     <ShoppingCart size={20} />
                     <span>Vendas</span>
                 </a>
+                 <a className="sidebar-item" href="/ia">
+                    <Bot size={20} />
+                    <span>Assistente de estoque</span>
+                </a>
                 <a className="sidebar-item">
                     <BarChart3 size={20} />
                     <span>Relatórios</span>
                 </a>
             </nav>
-            <div className="sidebar-bottom">
-                <a className="sidebar-item">
-                    <Settings size={20} />
-                    <span>Configurações</span>
-                </a>
-                <div className="ai-card">
-                    <div className="ai-icon">
-                        <Bot size={22} />
-                    </div>
-                    <div>
-                        <strong>Assistente IA</strong>
-                        <div className="ai-status">
-                            <span></span>
-                            Online
-                        </div>
-                    </div>
-                </div>
-            </div>
         </aside>
     );
 }

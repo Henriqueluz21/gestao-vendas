@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { apiFetch } from "@/services/api";
 import EstoqueModal from "../components/layout/EstoqueModal";
+import Toast from "../components/layout/Toast";
 
 interface Estoque {
     id: number;
@@ -25,6 +26,10 @@ export default function EstoquePage() {
     const [produtos, setProdutos] = useState<Produto[]>([]);
     const [carregando, setCarregando] = useState(true);
     const [estoqueEditar, setEstoqueEditar] = useState<Estoque | null>(null);
+
+    const [toastVisivel, setToastVisivel] = useState(false);
+    const [toastMensagem, setToastMensagem] = useState("");
+    const [toastTipo, setToastTipo] = useState<"sucesso" | "erro" | "aviso" | "info">("sucesso");
 
 
 
@@ -93,16 +98,24 @@ export default function EstoquePage() {
 
     return (
 
+
         <main className="page-content">
             <div className="page-header">
                 <div>
                     <h1>Estoque</h1>
                 </div>
-                <button className="primary-button" onClick={() => { setEstoqueEditar(null);setModalAberto(true); }}>
+                <button className="primary-button" onClick={() => { setEstoqueEditar(null); setModalAberto(true); }}>
                     + Entrada
                 </button>
             </div>
 
+            <Toast
+                mensagem={toastMensagem}
+                tipo={toastTipo}
+                visivel={toastVisivel}
+                onClose={() => setToastVisivel(false)}
+            />
+            
             <div className="stock-card">
 
                 {carregando ? (
